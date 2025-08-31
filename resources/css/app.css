@@ -551,3 +551,24 @@ footer {
         width: 100%;
     }
 }
+
+/* Error styling */
+.error-field {
+    border: 2px solid #dc3545 !important;
+    background-color: #fff5f5;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 500;
+}
+
+.error-field:focus {
+    outline: none;
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
