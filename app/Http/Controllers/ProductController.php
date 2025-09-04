@@ -7,10 +7,23 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('products.index', ['products' => $products]);
+        $keyword = $request->get('search');
+        $perPage = 4;
+
+        $products = Product::query()
+        ->when($keyword, function ($query, $keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('category', 'LIKE', "%{$keyword}%");
+            });
+        })
+        ->latest()
+        ->paginate($perPage);
+
+        return view('products.index', compact('products'));
+
     }
 
     public function create()
